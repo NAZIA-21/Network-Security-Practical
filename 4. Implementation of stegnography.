@@ -5,14 +5,22 @@ Pip install Pillow
 
 from PIL import Image
 import stepic
-
-#ENCRYPTION
-original_img=Image.open('img1.jpg')
-encoded_img=stepic.encode(original_img,b'hello this is ns practical')
+from google.colab import files
+from IPython.display import display
+# Upload the image
+uploaded = files.upload()
+# Get uploaded filename automatically
+input_filename = next(iter(uploaded))
+# Open and convert to RGB
+original_img = Image.open(input_filename).convert("RGB")
+# ENCRYPTION
+message = "Hello Exam"
+encoded_img = stepic.encode(original_img, message.encode())
 encoded_img.save('img2.png')
-encoded_img=Image.open('img2.png')
-encoded_img.show()
-
-#DECRYPTION
-decoded_img=stepic.decode(encoded_img)
-print("the decoded message is >>", decoded_img)
+print("Message encoded and saved to img2.png")
+# DISPLAY encoded image
+print("Encoded Image with hidden message:")
+display(Image.open('img2.png'))
+# DECRYPTION
+decoded_msg = stepic.decode(Image.open('img2.png'))
+print("Decoded message:", decoded_msg)
