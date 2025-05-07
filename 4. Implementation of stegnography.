@@ -24,3 +24,20 @@ display(Image.open('img2.png'))
 # DECRYPTION
 decoded_msg = stepic.decode(Image.open('img2.png'))
 print("Decoded message:", decoded_msg)
+
+
+--------------------------------------OR-----------------------------------------------------------------------------------------
+
+from PIL import Image
+import stepic
+from google.colab import files
+uploaded = files.upload()
+original_img = Image.open(list(uploaded.keys())[0])
+encoded_img = stepic.encode(original_img , b'My name John Doe')
+encoded_img.save('encoded_image.png')
+encoded_img = Image.open('encoded_image.png')
+encoded_img.show()
+files.download('encoded_image.png') 
+encoded_img = Image.open('encoded_image.png')
+decoded_msg = stepic.decode(encoded_img)
+print("Hidden Message:", decoded_msg)
